@@ -9,7 +9,7 @@ It will automatically install and configure yolo v4.
 ```
 git clone https://github.com/Ruzil357/YoloCustomDatasetBoilerPlate_v4.git
 ```
-2Create a virtual environment using `requirements.txt`
+2) Create a virtual environment using `requirements.txt`
 <br/>
 
 ## Configuring The `config.json` File
@@ -30,6 +30,7 @@ To switch between modes, run `set_mode.py` ad choose between `train` or `test` <
 
 ## How To Train Yolo Using The Custom Dataset
 1) Set the model to training mode by running `set_mode.py`
+<<<<<<< HEAD
 2) Then run the following in the `src` directory: <br/>
 `./darknet/dar detector train data/dataset.data cfg/yolov4-custom.cfg yolov4.conv.137 -dont_show -map`
 
