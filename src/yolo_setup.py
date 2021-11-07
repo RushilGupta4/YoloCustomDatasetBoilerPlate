@@ -10,8 +10,8 @@ with open("config.json", "r", encoding="utf8") as config_file:
 environ["PATH"] += pathsep + _CONFIG["cuda_path"]
 
 _CFG_DIR = join("darknet", "cfg")
-_CFG_FILE_PATH = join(_CFG_DIR, "yolov4-custom.cfg")
-_TARGET_CFG_FILE_PATH = join("cfg", "yolov4-custom.cfg")
+_CFG_FILE_PATH = join(_CFG_DIR, _CONFIG["model_config_file_name"])
+_TARGET_CFG_FILE_PATH = join("cfg", _CONFIG["model_config_file_name"])
 
 _DARKNET_DATA_DIR = join("darknet", "data")
 
@@ -53,7 +53,7 @@ def _remove_files():
     rmtree(_DARKNET_DATA_DIR)
 
     for file in listdir(_CFG_DIR):
-        if file == "yolov4-custom.cfg":
+        if file == _CONFIG["model_config_file_name"]:
             continue
         if isdir(join(_CFG_DIR, file)):
             rmtree(join(_CFG_DIR, file))
@@ -74,6 +74,7 @@ def _setup_cfg_file():
     cfg[7] = f"width={model_config['image_width']}"
     cfg[8] = f"height={model_config['image_height']}"
     cfg[9] = f"channels={model_config['channels']}"
+    cfg[17] = f"learning_rate={model_config['learning_rate']}"
     cfg[19] = f"max_batches={max_batches}"
     cfg[21] = f"steps={int(0.8 * max_batches)},{int(0.9 * max_batches)}"
 
