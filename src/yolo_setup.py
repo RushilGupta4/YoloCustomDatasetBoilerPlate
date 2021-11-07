@@ -1,5 +1,5 @@
-from os import system, environ, pathsep, listdir, remove
-from os.path import isdir, join, isfile
+from os import system, environ, pathsep, listdir, remove, mkdir
+from os.path import isdir, join
 from shutil import rmtree
 from json import load
 
@@ -11,11 +11,16 @@ environ["PATH"] += pathsep + _CONFIG["cuda_path"]
 
 _CFG_DIR = join("darknet", "cfg")
 _CFG_FILE_PATH = join(_CFG_DIR, "yolov4-custom.cfg")
+_TARGET_CFG_FILE_PATH = join("cfg", "yolov4-custom.cfg")
 
-_DATA_DIR = join("darknet", "data")
+_DARKNET_DATA_DIR = join("darknet", "data")
 
 _BASE_IMAGE_PATH = join("raw_data", "images")
 _CLASSES = [i for i in listdir(_BASE_IMAGE_PATH) if isdir(join(_BASE_IMAGE_PATH, i))]
+
+for folder in ["data", "cfg"]:
+    if not isdir(folder):
+        mkdir(folder)
 
 
 def main():
@@ -45,10 +50,7 @@ def _remove_files():
     if isdir(git_folder):
         rmtree(git_folder)
 
-    for file in listdir(_DATA_DIR):
-        file_path = join(_DATA_DIR, file)
-        if not isdir(file_path):
-            remove(file_path)
+    rmtree(_DARKNET_DATA_DIR)
 
     for file in listdir(_CFG_DIR):
         if file == "yolov4-custom.cfg":
@@ -79,10 +81,14 @@ def _setup_cfg_file():
         if line == "[yolo]":
             cfg[i - 4] = f"filters={(len(_CLASSES) + 5) * 3}"
             cfg[i + 3] = f"classes={len(_CLASSES)}"
+            continue
+
+        if line == "activation=linear":
+            cfg[i] = "activation=relu"
 
     final = "\n".join(cfg)
 
-    with open(_CFG_FILE_PATH, "w") as cfg_file:
+    with open(_TARGET_CFG_FILE_PATH, "w") as cfg_file:
         cfg_file.write(final)
 
 

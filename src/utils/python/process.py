@@ -4,8 +4,9 @@ from glob import iglob
 from shutil import copytree
 
 _BASE_DATA_PATH = "raw_data"
+_TARGET_DIR = "data"
+
 _BASE_IMAGE_PATH = join(_BASE_DATA_PATH, "images")
-_TARGET_DIR = join("darknet", "data")
 
 _BASE_DATASET_DIR = join(_BASE_DATA_PATH, "dataset")
 _TARGET_DATASET_DIR = join(_TARGET_DIR, "dataset")
@@ -47,7 +48,7 @@ def _create_dataset_files():
         file.write(f"train = {join('data', 'train.txt')}\n")
         file.write(f"valid = {join('data', 'test.txt')}\n")
         file.write(f"names = {join('data', 'dataset.names')}\n")
-        file.write("backup = backup/")
+        file.write(f"backup = {join('darknet', 'backup')}")
 
     with open(names_file, "w") as file:
         for cls in _CLASSES:

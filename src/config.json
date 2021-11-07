@@ -1,8 +1,8 @@
 {
   "cuda_path": "/opt/cuda/bin",
   "model_config": {
-    "image_width": 608,
-    "image_height": 608,
+    "image_width": 512,
+    "image_height": 512,
     "channels": 3,
     "training_cfg": {
       "batch": 64,

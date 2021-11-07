@@ -9,8 +9,6 @@ import glob
 
 # colors for the bboxes
 COLORS = ['red', 'blue', 'purple', 'grey', 'cyan', 'green', 'black']
-# image sizes for the examples
-SIZE = 256, 256
 # regex for graphics file format
 FILES_FORMAT_REGEX = '*.jpg'
 
@@ -186,12 +184,10 @@ class LabelTool:
         self.imagename = os.path.split(self.imagepath)[-1].split('.')[0]
         self.labelname = self.imagename + '.txt'
         self.labelfilename = os.path.join(self.imageDir, self.labelname)
-        bbox_cnt = 0
         if os.path.exists(self.labelfilename):
             with open(self.labelfilename) as f:
                 for (i, line) in enumerate(f):
                     if i == 0 and len(line.strip()) == 1:
-                        bbox_cnt = int(line.strip())
                         continue
                         # check yolo format annotation
                     if line[1].isdecimal():
