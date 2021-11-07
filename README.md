@@ -9,7 +9,7 @@ It will automatically install and configure yolo v4.
 ```
 git clone https://github.com/Ruzil357/YoloCustomDatasetBoilerPlate_v4.git
 ```
-2Create a virtual environment using `requirements.txt`
+2) Create a virtual environment using `requirements.txt`
 <br/>
 
 ## Configuring The `config.json` File
