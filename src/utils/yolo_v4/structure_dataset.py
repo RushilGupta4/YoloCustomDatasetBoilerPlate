@@ -1,7 +1,7 @@
 from os import listdir, remove, makedirs
 from os.path import join, isdir, splitext
 from glob import glob
-from shutil import copy
+from shutil import copy, rmtree
 
 
 _BASE_DATA_DIR = "raw_data"
@@ -16,10 +16,12 @@ _CLASSES = [i for i in listdir(_BASE_IMAGES_DIR) if isdir(join(_BASE_IMAGES_DIR,
 
 
 def main():
-
     old_files = [join(_TARGET_DIR, i) for i in listdir(_TARGET_DIR) if i != ".gitignore"]
     for old_file in old_files:
-        remove(old_file)
+        if isdir(old_file):
+            rmtree(old_file)
+        else:
+            remove(old_file)
 
     for cls in _CLASSES:
         cls_img_path = join(_BASE_IMAGES_DIR, cls)
@@ -38,7 +40,3 @@ def main():
 
             copy(img_source, img_destination)
             copy(label_source, label_destination)
-
-
-if __name__ == '__main__':
-    main()

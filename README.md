@@ -14,32 +14,20 @@ git clone https://github.com/Ruzil357/YoloCustomDatasetBoilerPlate_v4.git
 
 ## Configuring The `config.json` File
 1) Add the path to you nvcc in the `cuda_path` variable (can be found using `which nvcc`)
-2) Choose configurations for your model (default configurations are already given)
+2) Choose your Yolo version
+3) Choose you training split size
+
+##Configuring Yolo Version Specific File
+1) Find `model_config.json` in the directory `utils/your-yolo-version`
+2) Add appropriate configurations in the file
 
 ## Using Custom Dataset
 1) Under the `raw_data/images` folder, create a folder for each class
 2) Add images for each class in their respective sub folders
-3) Now open `create_dataset.py` and choose you testing size (default - 10%)
-4) Run `create_dataset.py`
+3Run `create_dataset.py`
 
 ## Setting Up Yolo
-To set up yolo v4, run yolo_setup.py with `src` as the working directory<br/>
-
-## Switching Between Training And Testing Modes
-To switch between modes, run `set_mode.py` ad choose between `train` or `test` <br/>
+To set up yolo, run yolo_setup.py with `src` as the working directory<br/>
 
 ## How To Train Yolo Using The Custom Dataset
-1) Set the model to training mode by running `set_mode.py`
-<<<<<<< HEAD
-2) Then run the following in the `src` directory: <br/>
-`./darknet/dar detector train data/dataset.data cfg/yolov4-custom.cfg yolov4.conv.137 -dont_show -map`
-
-
-## Steps
-1) Clone git repository
-2) Configure `config.json`
-3) Add images to be labelled in `raw_images/images/{className}`
-4) Run `create_dataset.py`
-5) Run `yolo_setup.py`
-6) Train model using the cmd:<br/>
-`./darknet detector train data/dataset.data cfg/yolov4-custom.cfg yolov4.conv.137 -dont_show -map`
+1) Run `run.py` in the `src` directory and choose between training and testing

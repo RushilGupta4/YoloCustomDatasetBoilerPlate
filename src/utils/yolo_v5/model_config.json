@@ -1,0 +1,7 @@
+{
+  "weights": "yolov5l.pt",
+  "cfg_file": "yolov5l.yaml",
+  "img_size": 512,
+  "batch_size": 16,
+  "epochs": 300
+}

@@ -1,18 +1,5 @@
 {
-  "cuda_path": "/opt/cuda/bin",
-  "model_config_file_name": "yolov4-custom.cfg",
-  "model_config": {
-    "image_width": 512,
-    "image_height": 512,
-    "channels": 3,
-    "learning_rate": 0.0013,
-    "training_cfg": {
-      "batch": 64,
-      "subdivisions": 16
-    },
-    "testing_cfg": {
-      "batch": 1,
-      "subdivisions": 1
-    }
-  }
+  "yolo_version": 5,
+  "training_size": 0.9,
+  "cuda_path": "/opt/cuda/bin"
 }

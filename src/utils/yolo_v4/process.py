@@ -1,10 +1,13 @@
-from os import listdir
+from os import listdir, mkdir
 from os.path import splitext, basename, join, isdir
 from glob import iglob
-from shutil import copytree
+from shutil import move, rmtree
 
 _BASE_DATA_PATH = "raw_data"
 _TARGET_DIR = "data"
+
+if not isdir(_TARGET_DIR):
+    mkdir(_TARGET_DIR)
 
 _BASE_IMAGE_PATH = join(_BASE_DATA_PATH, "images")
 
@@ -18,10 +21,15 @@ def main(test_size: int):
     _create_test_train(test_size)
     _create_dataset_files()
 
+    if isdir(_TARGET_DATASET_DIR):
+        rmtree(_TARGET_DATASET_DIR)
+
+    move(_BASE_DATASET_DIR, _TARGET_DATASET_DIR)
+
 
 def _create_test_train(test_size):
     file_train = open(join(_TARGET_DIR, "train.txt"), "w")
-    file_val = open(join(_TARGET_DIR, "test.txt"), "w")
+    file_test = open(join(_TARGET_DIR, "test.txt"), "w")
     counter = 1
     index_test = round(100 * test_size)
 
@@ -30,13 +38,13 @@ def _create_test_train(test_size):
 
         if counter == index_test:
             counter = 1
-            file_val.write(f"{join(_BASE_DATASET_DIR, f'{title}.jpg')}\n")
+            file_test.write(f"{join(_TARGET_DATASET_DIR, f'{title}.jpg')}\n")
         else:
-            file_train.write(f"{join(_BASE_DATASET_DIR, f'{title}.jpg')}\n")
+            file_train.write(f"{join(_TARGET_DATASET_DIR, f'{title}.jpg')}\n")
             counter += 1
 
     file_train.close()
-    file_val.close()
+    file_test.close()
 
 
 def _create_dataset_files():
@@ -53,5 +61,3 @@ def _create_dataset_files():
     with open(names_file, "w") as file:
         for cls in _CLASSES:
             file.write(f"{cls}\n")
-
-    copytree(_BASE_DATASET_DIR, _TARGET_DATASET_DIR)

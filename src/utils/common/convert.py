@@ -4,7 +4,7 @@ This script is to convert the txt annotation files to appropriate format needed 
 
 """
 
-from os import listdir, mkdir
+from os import listdir, makedirs
 from os.path import join, splitext, isdir
 from PIL import Image
 
@@ -38,7 +38,7 @@ def main():
         outpath = join(_BASE_LABEL_PATH, cls)
 
         if not isdir(outpath):
-            mkdir(outpath)
+            makedirs(outpath)
 
         """ Get input text file list """
         txt_name_list = [i for i in listdir(mypath) if i.endswith(".txt") and i != "images_list.txt"]
